@@ -1,0 +1,165 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=0.4, maximum-scale=0.4, user-scalable=no" />
+    <title>Continuous Tilting Example</title>
+
+    <style>
+        /* OK STUDENT */
+        body {
+            background: white;
+        }
+
+        .gallery_class {
+            -webkit-box-shadow: 0px 0px 0px 2px rgba(0,0,0,0.75);
+            -moz-box-shadow: 0px 0px 0px 2px rgba(0,0,0,0.75);
+            box-shadow: 0px 0px 0px 2px rgba(0,0,0,0.75);
+            margin-top: 10px;
+            margin-left: 10px;
+            max-width: 200px;
+            height: 200px;
+        }
+
+        .wrp {
+            height: auto;
+            display: inline;
+        }
+
+        .notselected {
+            -webkit-box-shadow: 0px 0px 0px 3px rgba(0,0,0,0.75);
+            -moz-box-shadow: 0px 0px 0px 3px rgba(0,0,0,0.75);
+            box-shadow: 0px 0px 0px 3px rgba(0,0,0,0.75);
+        }
+
+        .selected {
+            -webkit-box-shadow: 0px 0px 0px 3px red;
+            -moz-box-shadow: 0px 0px 0px 3px red;
+            box-shadow: 0px 0px 0px 3px red;
+        }
+
+        #touch {
+            position: absolute;
+            width: 100%;
+            height: 80%;
+        }
+        /* OK STUDENT */
+        .centerimg {
+            top: 10px;
+            position: relative;
+            left: 10%;
+            width: 80%;
+        }
+
+        #info {
+            position: absolute;
+            bottom: 0%;
+            right: 10%;
+        }
+    </style>
+
+    <script type="text/javascript" src="js/jquery-2.1.1.min.js"></script>
+    <script type="text/javascript" src="js/jquery_tiltandtap.js"></script>
+</head>
+<body>
+
+    <div class="thumbs-block" id="thumbs-block">
+        <div class="wrp"><img id="img1" class="selected gallery_class" src="img/img1.jpg" /></div>
+        <div class="wrp"><img id="img2" class="gallery_class notselected" src="img/img2.jpg" /></div>
+        <div class="wrp"><img id="img3" class="gallery_class notselected" src="img/img3.jpg" /></div>
+        <div class="wrp"><img id="img4" class="gallery_class notselected" src="img/img4.jpg" /></div>
+    </div>
+    <div id="touch">
+        <div>
+            <!--   USE THIS DIV AS THE TARGET FOR THE TAP HOLD INTERACTION  -->
+            <p id="info"></p>
+        </div>
+    </div>
+
+    <script>
+        var map = { "img1": 1, "img2": 2, "img3": 3, "img4": 4 }
+        var map_info = { "img1": "ETH Terrasse", "img2": "ETH Main Building, interior", "img3": "ETH Main Building", "img4": "ETH Main Building 2" }
+        var isOpen = false;
+        var infoShown = false;
+
+        $("#thumbs-block").tiltandtap({
+            onTiltLeft: prev_image,
+            onTiltRight: next_image
+        });
+
+        function prev_image() {
+            var img = $(".selected");
+            var id = map[img.attr("id")];
+            //in case of leftmost already selected
+            if (id == 1) return;
+
+            img.removeClass("selected");
+            img.addClass("notselected");
+
+            id = id - 1;
+            var newImage = $("#img".concat(id.toString()));
+            newImage.removeClass("notselected");
+            newImage.addClass("selected");
+
+            if (isOpen) {
+                close_image();
+                open_image();
+            }
+
+            if (infoShown == true) {
+                $("p").text("");
+                $("p").text(map_info[$(".selected").attr("id")]);
+            }
+        }
+
+        function next_image() {
+            var img = $(".selected");
+            var id = map[img.attr("id")];
+            //in case of leftmost already selected
+            if (id == 4) return;
+
+            img.removeClass("selected");
+            img.addClass("notselected");
+
+            id = id + 1;
+            var newImage = $("#img".concat(id.toString()));
+            newImage.removeClass("notselected");
+            newImage.addClass("selected");
+
+            if (isOpen) {
+                close_image();
+                open_image();
+            }
+
+            if (infoShown == true) {
+                $("p").text("");
+                $("p").text(map_info[$(".selected").attr("id")]);
+            }
+        }
+
+        function open_image() {
+            isOpen = true;
+            var $img = $(".selected").clone();
+            $img.removeClass("gallery_class notselected");
+            $img.addClass("centerimg");
+            $("#touch>div").append($img);
+        }
+
+        function close_image() {
+            isOpen = false;
+            $(".centerimg").remove();
+        }
+
+        function info() {
+            if (infoShown == true) {
+                $("p").text("");
+                infoShown = false;
+            } else {
+                $("p").text(map_info[$(".selected").attr("id")]);
+                infoShown = true;
+            }
+        }
+
+    </script>
+</body>
+</html>
