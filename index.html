@@ -103,10 +103,11 @@
 			var d1 = new Date();
 			var n = d1.getTime(); 
 			var diff = n-timeup;
-			if (diff < 500 )
+			if (diff < 1000 )
 			{
-				close_image();
-				open_image();
+				infoShown = true;
+				$("p").text("");
+                $("p").text(map_info[$(".selected").attr("id")]);
 			}
 			//$("#thumbs-block").css("background-color","rgb(1,1,100)");
 			
