@@ -85,9 +85,9 @@
 
         $("#thumbs-block").tiltandtap({
             onTiltLeft: prev_image,
-            onTiltRight: next_image
-			//onTiltUp: set_up_timer,
-			//onTiltDown: tilt_down_action
+            onTiltRight: next_image,
+			onTiltUp: set_up_timer,
+			onTiltDown: tilt_down_action
         });
 		/*$("#touch").tiltandtap({
 			
@@ -98,15 +98,17 @@
 			var d = new Date();
 			timeup = d.getMilliseconds();
 			open_image();
+			$("#thumbs-block").css("background-color","rgb(100,100,100)");
 		}
 		function tilt_down_action(){
-			var d1 = new Date();
+			/*var d1 = new Date();
 			var n = d1.getMilliseconds(); 
 			var diff = n-timeup;
 			if (diff < 500 )
 			{
 				open_image();
-			}
+			}*/
+			$("#thumbs-block").css("background-color","rgb(1,1,100)");
 			
 		}
         function prev_image() {
