@@ -84,16 +84,17 @@
 		var timeup = 0;
 
         $("#touch").tiltandtap({
-            tiltLeft: {onTiltLeft: prev_image},
-            tiltRight: {onTiltRight: next_image},
-			
+            onTiltLeft: prev_image,
+            onTiltRight: next_image,
+			tiltUp : {onTiltUp: closeopen_image, interaction : {type: "press", element: "touch"}},
+			tiltDown : {onTiltDown: close_image, interaction : {type: "press", element: "touch"}}
 			onTiltUp: set_up_timer,
 			onTiltDown: tilt_down_action
         });
-		$("#touch").tiltandtap({
+		/*$("#touch").tiltandtap({
 			tiltUp : {onTiltUp: closeopen_image, interaction : {type: "press", element: "touch"}},
 			tiltDown : {onTiltDown: close_image, interaction : {type: "press", element: "touch"}}
-		});
+		});*/
 
 		function set_up_timer(){
 			var d = new Date();
