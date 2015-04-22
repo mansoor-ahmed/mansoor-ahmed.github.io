@@ -81,12 +81,33 @@
         var map_info = { "img1": "ETH Terrasse", "img2": "ETH Main Building, interior", "img3": "ETH Main Building", "img4": "ETH Main Building 2" }
         var isOpen = false;
         var infoShown = false;
+		var timeup = 0;
 
         $("#thumbs-block").tiltandtap({
             onTiltLeft: prev_image,
-            onTiltRight: next_image
+            onTiltRight: next_image,
+			onTiltUp: set_up_timer,
+			onTiltDown: tilt_down_action
         });
+		$("#touch").tiltandtap({
+			
+			
+		});
 
+		function set_up_timer(){
+			var d = new Date();
+			timeup = d.getMilliseconds();
+		}
+		function tilt_down_action{
+			var d1 = new Date();
+			var n = d1.getMilliseconds(); 
+			var diff = n-timeup;
+			if (diff < 500 )
+			{
+				open_image();
+			}
+			
+		}
         function prev_image() {
             var img = $(".selected");
             var id = map[img.attr("id")];
