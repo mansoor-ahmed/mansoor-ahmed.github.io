@@ -91,7 +91,7 @@
 			onTiltDown: tilt_down_action
         });
 		$("#touch").tiltandtap({
-			tiltUp : {onTiltUp: open_image, interaction : {type: "press", element: "touch"}},
+			tiltUp : {onTiltUp: closeopen_image, interaction : {type: "press", element: "touch"}},
 			tiltDown : {onTiltDown: close_image, interaction : {type: "press", element: "touch"}}
 		});
 
@@ -170,11 +170,17 @@
             $img.addClass("centerimg");
             $("#touch>div").append($img);
         }
-
+	
         function close_image() {
             isOpen = false;
             $(".centerimg").remove();
         }
+		
+		function closeopen_image(){
+			close_image();
+			open_image();
+		}
+
 
         function info() {
             if (infoShown == true) {
