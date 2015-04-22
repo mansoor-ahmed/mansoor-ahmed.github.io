@@ -96,12 +96,12 @@
 
 		function set_up_timer(){
 			var d = new Date();
-			timeup = d.getMilliseconds();
+			timeup = d.getTime();
 			
 		}
 		function tilt_down_action(){
 			var d1 = new Date();
-			var n = d1.getMilliseconds(); 
+			var n = d1.getTime(); 
 			var diff = n-timeup;
 			if (diff < 500 )
 			{
