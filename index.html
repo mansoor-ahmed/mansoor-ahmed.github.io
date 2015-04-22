@@ -87,19 +87,19 @@
             onTiltLeft: prev_image,
             onTiltRight: next_image,
 			onTiltUp: set_up_timer,
-			onTiltDown: tilt_down_action
+			//onTiltDown: tilt_down_action
         });
-		$("#touch").tiltandtap({
+		/*$("#touch").tiltandtap({
 			
 			
-		});
+		});*/
 
 		function set_up_timer(){
 			var d = new Date();
 			timeup = d.getMilliseconds();
 			open_image();
 		}
-		function tilt_down_action{
+		function tilt_down_action(){
 			var d1 = new Date();
 			var n = d1.getMilliseconds(); 
 			var diff = n-timeup;
